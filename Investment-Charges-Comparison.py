@@ -1,11 +1,14 @@
-#!/bin/python
+#!/usr/bin/python3
 import sys
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import locale
+import argparse
+import csv
+import os.path
 
-locale.setlocale( locale.LC_ALL, '' )
-years = range(0, int(sys.argv[2])+1)
+from os import path
+
 
 def projection(monthlyContribution, duration, growth, platformFee, platformCap, fundFee):
     total = 0
@@ -28,18 +31,25 @@ def projection(monthlyContribution, duration, growth, platformFee, platformCap, 
   
     return stats
 
-investment1 = (projection(float(sys.argv[1]), int(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]) , float(sys.argv[6])));
+def main(argv):
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('-i', '--input', required=True, type=str, help='The CSV file to plot the data from.')
+    args = parser.parse_args()
 
-investment2 = (projection(float(sys.argv[1]), int(sys.argv[2]), float(sys.argv[3]), float(sys.argv[7]), float(sys.argv[8]) , float(sys.argv[9])));
+    if not path.isfile(args.input):
+        print("The input CSV file '{}' does not exist or is not a file.".format(args.input))
+        sys.exit(2)
 
-plt.plot(years, investment1, color='red')
-plt.plot(years, investment2, color='blue')
-plt.xlabel('Duration (Years)')
-plt.ylabel('Total (£)')
-plt.grid(True)
-red_label = 'Total : '+str(locale.currency(investment1[len(investment1)-1], grouping=True ))
-blue_label = 'Total : '+str(locale.currency(investment2[len(investment2)-1], grouping=True ))
-red_patch = mpatches.Patch(color='red', label=red_label)
-blue_patch = mpatches.Patch(color='blue', label=blue_label)
-plt.legend(handles=[blue_patch, red_patch])
-plt.show()
+    with open(args.input) as csvDataFile:
+        csvReader = csv.reader(csvDataFile)
+        for row in csvReader:
+            investment = (projection(float(row[0]), int(row[1]), float(row[2]), float(row[3]), float(row[4]) , float(row[5]))); 
+            plt.plot(range(0, int(row[1])+1), investment, color='green')
+ 
+    plt.xlabel('Duration (Years)')
+    plt.ylabel('Total ($)')
+    plt.grid(True)  
+    plt.show()
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

@@ -7,6 +7,17 @@ I was not able to find a program which could achieve this, so I created this Pyt
 ## Installation
 
 ```
-sudo pip3 install matplotlib
+sudo pacman -S python python-matplotlib
+```
+## CSV Format
+
+```
+Format : Name, Colour, Monthly Contribution, Duration, Growth, Platform Fee, Platform Cap, Fund Fee
+
+e.g.
+
+HL, red, 200, 20, 5, 0, 0, 0.1
+Vangaurd, green, 200, 20, 5, 0, 0, 0.15
+
 ```
 

@@ -9,6 +9,8 @@ import os.path
 
 from os import path
 
+locale.setlocale( locale.LC_ALL, '' )
+
 
 def projection(monthlyContribution, duration, growth, platformFee, platformCap, fundFee):
     total = 0
@@ -40,14 +42,25 @@ def main(argv):
         print("The input CSV file '{}' does not exist or is not a file.".format(args.input))
         sys.exit(2)
 
+    patches = []
+
     with open(args.input) as csvDataFile:
         csvReader = csv.reader(csvDataFile)
-        for row in csvReader:
-            investment = (projection(float(row[0]), int(row[1]), float(row[2]), float(row[3]), float(row[4]) , float(row[5]))); 
-            plt.plot(range(0, int(row[1])+1), investment, color='green')
+        for row in csvReader: 
+            if len(row) == 8:
+                investment = (projection(float(row[2]), int(row[3]), float(row[4]), float(row[5]), float(row[6]) , float(row[7]))); 
+                plt.plot(range(0, int(row[3])+1), investment, color=str(row[1]).strip())
+                temp_label = str(row[0]).strip()+' Total : '+str(locale.currency(investment[len(investment)-1], grouping=True ))
+                temp_patch = mpatches.Patch(color=str(row[1]).strip(), label=temp_label)
+                patches.append(temp_patch)
+            else:
+                print("CSV row not in the expected format.")
+                print(row)
+                print("Format : Name, Colour, Monthly Contribution, Duration, Growth, Platform Fee, Platform Cap, Fund Fee")
  
+    plt.legend(handles=patches)
     plt.xlabel('Duration (Years)')
-    plt.ylabel('Total ($)')
+    plt.ylabel('Total')
     plt.grid(True)  
     plt.show()
 

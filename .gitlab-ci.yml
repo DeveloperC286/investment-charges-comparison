@@ -9,5 +9,5 @@ build:
         - pacman -Sy --noconfirm 
         - pacman -S python python-matplotlib --noconfirm 
     script:
-        - python -m py_compile Investment-Charges-Comparison.py 
+        - python -m py_compile investment-charges-comparison.py 
 

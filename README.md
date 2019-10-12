@@ -9,6 +9,17 @@ I was not able to find a program which could achieve this, so I created this Pyt
 ```
 sudo pacman -S python python-matplotlib
 ```
+
+## Usage
+
+The Python script reads in the values from a CSV file. This allows you to graph as many investments as you desire. You can define the input via the arguement `--input`.
+
+e.g.
+
+```
+./investment-charges-comparison --input data.csv
+```
+
 ## CSV Format
 
 ```

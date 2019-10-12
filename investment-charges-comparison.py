@@ -60,7 +60,7 @@ def main(argv):
  
     plt.legend(handles=patches)
     plt.xlabel('Duration (Years)')
-    plt.ylabel('Total')
+    plt.ylabel('Total ($)')
     plt.grid(True)  
     plt.show()
 

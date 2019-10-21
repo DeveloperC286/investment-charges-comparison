@@ -8,7 +8,7 @@ format:
     stage: format 
     before_script:
         - pacman -Sy --noconfirm 
-        - pacman -S python pycodestyle --noconfirm 
+        - pacman -S python python-pycodestyle --noconfirm 
     script:
         - pycodestyle investment-charges-comparison.py
 

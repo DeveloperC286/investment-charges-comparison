@@ -1,7 +1,16 @@
 image: archlinux/base
 
 stages:
+    - format
     - build
+
+format:
+    stage: format 
+    before_script:
+        - pacman -Sy --noconfirm 
+        - pacman -S python pycodestyle --noconfirm 
+    script:
+        - pycodestyle investment-charges-comparison.py
 
 build:
     stage: build

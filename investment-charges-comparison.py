@@ -19,13 +19,13 @@ def projection(monthly_contribution, duration, growth, platform_fee,
 
     stats.append(0)
     for year in range(0, duration):
-        total = total + (monthly_contribution*12)
+        total = total + (monthly_contribution * 12)
         # Adding expected growth
-        total = total * (1+(growth/100))
+        total = total * (1 + (growth / 100))
         # Working out the fund fee
-        fund_fees = total * (fund_fee/100)
+        fund_fees = total * (fund_fee / 100)
         # Working out the platform fee and make sure it isn't over the cap.
-        platform_fees = total * (platform_fee/100)
+        platform_fees = total * (platform_fee / 100)
         if platform_fees > platform_cap:
             platform_fees = platform_cap
 
@@ -53,19 +53,22 @@ def main(argv):
         for row in csvReader:
             if len(row) == 8:
                 investment = (projection(float(row[2]), int(row[3]),
-                              float(row[4]), float(row[5]), float(row[6]),
-                              float(row[7])))
-                plt.plot(range(0, int(row[3])+1), investment,
+                                         float(row[4]), float(row[5]),
+                                         float(row[6]),
+                                         float(row[7])))
+                plt.plot(range(0, int(row[3]) + 1), investment,
                          color=str(row[1]).strip())
-                temp_label = str(row[0]).strip()+' Total : '+
-                                    str(locale.currency(investment[len(investment)-1],
-                                    grouping=True))
-                temp_patch = mpatches.Patch(color=str(row[1]).strip(), label=temp_label)
+                temp_label = "{} Total : {}".format(str(row[0]), str(
+                    locale.currency(investment[len(investment) - 1],
+                                    grouping=True)))
+                temp_patch = mpatches.Patch(color=str(row[1]).strip(),
+                                            label=temp_label)
                 patches.append(temp_patch)
             else:
                 print("CSV row not in the expected format.")
                 print(row)
-                print("Expected Format : Name, Colour, Monthly Contribution, Duration, Growth, Platform Fee, Platform Cap, Fund Fee")
+                print("Expected Format : Name, Colour, Monthly Contribution, "
+                      "Duration, Growth, Platform Fee, Platform Cap, Fund Fee")
 
     plt.legend(handles=patches)
     plt.xlabel('Duration (Years)')

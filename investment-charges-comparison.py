@@ -49,11 +49,9 @@ def main(argv):
         csvReader = csv.reader(csvDataFile)
         for row in csvReader:
             if len(row) == 8:
-                investment = (projection(float(row[2]), int(row[3]), float(row[4]), float(row[5]),
-                                         float(row[6]), float(row[7])))
+                investment = (projection(float(row[2]), int(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7])))
                 plt.plot(range(0, int(row[3]) + 1), investment, color=str(row[1]).strip())
-                temp_label = "{} Total : {}".format(str(row[0]), str(locale.currency(investment[len(investment) - 1],
-                                                    grouping=True)))
+                temp_label = "{} Total : {}".format(str(row[0]), str(locale.currency(investment[len(investment) - 1], grouping=True)))
                 temp_patch = mpatches.Patch(color=str(row[1]).strip(), label=temp_label)
                 patches.append(temp_patch)
             else:

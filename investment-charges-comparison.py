@@ -12,8 +12,7 @@ from os import path
 locale.setlocale(locale.LC_ALL, '')
 
 
-def projection(monthly_contribution, duration, growth, platform_fee,
-               platform_cap, fund_fee):
+def projection(monthly_contribution, duration, growth, platform_fee, platform_cap, fund_fee):
     total = 0
     stats = []
 
@@ -37,13 +36,11 @@ def projection(monthly_contribution, duration, growth, platform_fee,
 
 def main(argv):
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('-i', '--input', required=True, type=str,
-                        help='The CSV file to plot the data from.')
+    parser.add_argument('-i', '--input', required=True, type=str, help='The CSV file to plot the data from.')
     args = parser.parse_args()
 
     if not path.isfile(args.input):
-        print("The input CSV file '{}' does not exist or is not a file."
-              .format(args.input))
+        print("The input CSV file '{}' does not exist or is not a file.".format(args.input))
         sys.exit(2)
 
     patches = []
@@ -52,17 +49,12 @@ def main(argv):
         csvReader = csv.reader(csvDataFile)
         for row in csvReader:
             if len(row) == 8:
-                investment = (projection(float(row[2]), int(row[3]),
-                                         float(row[4]), float(row[5]),
-                                         float(row[6]),
-                                         float(row[7])))
-                plt.plot(range(0, int(row[3]) + 1), investment,
-                         color=str(row[1]).strip())
-                temp_label = "{} Total : {}".format(str(row[0]), str(
-                    locale.currency(investment[len(investment) - 1],
-                                    grouping=True)))
-                temp_patch = mpatches.Patch(color=str(row[1]).strip(),
-                                            label=temp_label)
+                investment = (projection(float(row[2]), int(row[3]), float(row[4]), float(row[5]),
+                                         float(row[6]), float(row[7])))
+                plt.plot(range(0, int(row[3]) + 1), investment, color=str(row[1]).strip())
+                temp_label = "{} Total : {}".format(str(row[0]), str(locale.currency(investment[len(investment) - 1],
+                                                    grouping=True)))
+                temp_patch = mpatches.Patch(color=str(row[1]).strip(), label=temp_label)
                 patches.append(temp_patch)
             else:
                 print("CSV row not in the expected format.")

@@ -10,7 +10,7 @@ format:
         - pacman -Sy --noconfirm 
         - pacman -S python python-pycodestyle --noconfirm 
     script:
-        - pycodestyle investment-charges-comparison.py
+        - pycodestyle investment-charges-comparison.py --max-line-length=120
 
 build:
     stage: build

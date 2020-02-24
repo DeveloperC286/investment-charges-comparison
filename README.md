@@ -1,4 +1,4 @@
-# Investment-Charges-Comparison
+# Investment Charges Comparison
 
 Whilst trying to compare investment options and platforms against their various attributes, I needed the capability to calculate and graph the data to help me evaluate my choices and make the best decision.
 

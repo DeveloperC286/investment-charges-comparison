@@ -23,7 +23,7 @@ e.g.
 ## CSV Format
 
 ```
-Format : Name, Colour, Monthly Contribution, Duration, Growth, Platform Fee, Platform Cap, Fund Fee
+Format : Name, Colour, Monthly Contribution (£), Duration (Years), Growth (%), Platform Fee(%), Platform Yearly Cap(£), Fund Fee (%)
 
 e.g.
 
@@ -32,3 +32,6 @@ Vangaurd, green, 200, 20, 5, 0, 0, 0.15
 
 ```
 
+## Example Image
+
+![Example output.](./example.png)

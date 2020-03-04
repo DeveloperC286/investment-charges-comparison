@@ -1,4 +1,5 @@
 # Investment Charges Comparison
+[![pipeline status](https://gitlab.com/DeveloperC/investment-charges-comparison/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/investment-charges-comparison/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Whilst trying to compare investment options and platforms against their various attributes, I needed the capability to calculate and graph the data to help me evaluate my choices and make the best decision.
 

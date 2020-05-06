@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import sys
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt

@@ -5,10 +5,17 @@ Whilst trying to compare investment options and platforms against their various 
 
 I was not able to find a program which could achieve this, so I created my own Python script to calculate and plot the data. The script has the capability to parse a CSV file plotting data such as monthly contributions, expected growth, platform charges, etc. Any number of investment options can be entered by the CSV file and visual options such as line colour and title can be declared as well to help data comparison.
 
-## Installation
-
+## Installing Dependencies
+via Arch Linux's package manager.
 ```
-sudo pacman -S python python-matplotlib
+pacman -S python-matplotlib
+```
+
+via pip and a virtual environment.
+```
+virtualenv -p python3 .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -18,21 +25,23 @@ The Python script reads in the values from a CSV file. This allows you to graph 
 e.g.
 
 ```
-./investment-charges-comparison --input data.csv
+python3 investment-charges-comparison.py --input data.csv
 ```
 
 ## CSV Format
 
 ```
 Format : Name, Colour, Monthly Contribution (£), Duration (Years), Growth (%), Platform Fee(%), Platform Yearly Cap(£), Fund Fee (%)
+```
 
 e.g.
 
+```
 HL, red, 200, 20, 5, 0, 0, 0.1
 Vangaurd, green, 200, 20, 5, 0, 0, 0.15
 
 ```
 
-## Example Image
+## Generated Graph Example
 
-![Example output.](./example.png)
+![Generated graph example output.](./example.png)

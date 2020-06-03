@@ -1,24 +1,25 @@
 image: archlinux/base
 
-stages:
-    - format
-    - build
 
-format:
-    stage: format
+stages:
+    - formatting
+    - builds
+
+
+formatting:
+    stage: formatting
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S python python-pycodestyle --noconfirm
     script:
         - pycodestyle investment-charges-comparison.py --max-line-length=140
 
-build:
-    stage: build
+
+builds:
+    stage: builds
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S python python-virtualenv python-pip --noconfirm
-        - virtualenv -p python3 .venv
-        - source .venv/bin/activate
+        - pacman -S python python-pip --noconfirm
         - pip install -r requirements.txt
     script:
         - python -m py_compile investment-charges-comparison.py

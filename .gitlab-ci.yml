@@ -12,6 +12,9 @@ formatting:
         - pacman -S python python-pycodestyle --noconfirm
     script:
         - pycodestyle investment-charges-comparison.py --max-line-length=140
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
 
 
 conventional-commits-linting:
@@ -36,3 +39,6 @@ builds:
         - pip install -r requirements.txt
     script:
         - python -m py_compile investment-charges-comparison.py
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"

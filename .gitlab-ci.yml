@@ -1,15 +1,14 @@
 stages:
     - formatting
     - conventional-commits-linting
-    - builds
+    - compiling
 
 
 formatting:
     stage: formatting
-    image: archlinux/base
+    image: python:3
     before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S python python-pycodestyle --noconfirm
+        - pip install pycodestyle
     script:
         - pycodestyle investment-charges-comparison.py --max-line-length=140
     rules:
@@ -30,12 +29,10 @@ conventional-commits-linting:
         - if: $CI_MERGE_REQUEST_ID
 
 
-builds:
-    stage: builds
-    image: archlinux/base
+compiling:
+    stage: compiling
+    image: python:3
     before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S python python-pip --noconfirm
         - pip install -r requirements.txt
     script:
         - python -m py_compile investment-charges-comparison.py

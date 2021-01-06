@@ -1,19 +1,7 @@
 stages:
-  - formatting
   - conventional-commits-linting
+  - formatting
   - compiling
-
-
-formatting:
-  stage: formatting
-  image: python:3
-  before_script:
-    - pip install pycodestyle
-  script:
-    - pycodestyle investment-charges-comparison.py --max-line-length=140
-  rules:
-    - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
 
 
 conventional-commits-linting:
@@ -27,6 +15,18 @@ conventional-commits-linting:
     - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
   rules:
     - if: $CI_MERGE_REQUEST_ID
+
+
+formatting:
+  stage: formatting
+  image: python:3
+  before_script:
+    - pip install pycodestyle
+  script:
+    - pycodestyle investment-charges-comparison.py --max-line-length=140
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 compiling:

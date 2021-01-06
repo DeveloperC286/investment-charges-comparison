@@ -1,41 +1,41 @@
 stages:
-    - formatting
-    - conventional-commits-linting
-    - compiling
+  - formatting
+  - conventional-commits-linting
+  - compiling
 
 
 formatting:
-    stage: formatting
-    image: python:3
-    before_script:
-        - pip install pycodestyle
-    script:
-        - pycodestyle investment-charges-comparison.py --max-line-length=140
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: formatting
+  image: python:3
+  before_script:
+    - pip install pycodestyle
+  script:
+    - pycodestyle investment-charges-comparison.py --max-line-length=140
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 conventional-commits-linting:
-    stage: conventional-commits-linting
-    image: rust
-    before_script:
-        - cargo install conventional_commits_linter
-    script:
-        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
-        # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: conventional-commits-linting
+  image: rust
+  before_script:
+    - cargo install conventional_commits_linter
+  script:
+    - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+    # Lint all the commits in the branch.
+    - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 compiling:
-    stage: compiling
-    image: python:3
-    before_script:
-        - pip install -r requirements.txt
-    script:
-        - python -m py_compile investment-charges-comparison.py
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: compiling
+  image: python:3
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - python -m py_compile investment-charges-comparison.py
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"

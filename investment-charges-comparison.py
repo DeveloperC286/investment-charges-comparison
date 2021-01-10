@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
-import sys
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
-import locale
 import argparse
 import csv
-import os.path
-
+import locale
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import sys
 from os import path
 
 locale.setlocale(locale.LC_ALL, '')

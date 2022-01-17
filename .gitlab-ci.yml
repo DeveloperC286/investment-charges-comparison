@@ -31,11 +31,15 @@ conventional-commits-linting:
 
 formatting:
   stage: formatting
-  image: python:3
+  image: python:3-slim
   before_script:
-    - pip install pycodestyle
+    - pip3 install autopep8
   script:
-    - pycodestyle investment-charges-comparison.py --max-line-length=140
+    - for i in $(du -a "." | awk '{print $2}' | grep -i "[.]py$"); do
+    - cp "$i" "temp.txt"
+    - autopep8 --in-place --aggressive --aggressive "$i"
+    - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
+    - done
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"
@@ -45,9 +49,11 @@ compiling:
   stage: compiling
   image: python:3
   before_script:
-    - pip install -r requirements.txt
+    - pip3 install -r requirements.txt
   script:
-    - python -m py_compile investment-charges-comparison.py
+    - for i in $(du -a "." | awk '{print $2}' | grep -i "[.]py$"); do
+    - python -m py_compile "$i" || ( echo "$i does not compile." && exit 1 )
+    - done
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"

@@ -5,41 +5,41 @@ stages:
   - compiling
 
 
+services:
+  - docker:dind
+
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+
+
+image:
+  name: earthly/earthly
+  entrypoint: ["/bin/sh", "-c"]
+
+
 clean-git-history-checking:
   stage: clean-git-history-checking
-  image: rust
-  before_script:
-    - cargo install clean_git_history
   script:
     # Check all the commits in the branch.
-    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+    - earthly --ci +clean-git-history-checking --from "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
 
 conventional-commits-linting:
   stage: conventional-commits-linting
-  image: rust
-  before_script:
-    - cargo install conventional_commits_linter
   script:
     # Lint all the commits in the branch.
-    - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
+    - earthly --ci +conventional-commits-linting --from "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
 
 formatting:
   stage: formatting
-  image: python:3-slim
-  before_script:
-    - pip3 install autopep8
   script:
-    - for i in $(du -a "." | awk '{print $2}' | grep -i "[.]py$"); do
-    - cp "$i" "temp.txt"
-    - autopep8 --in-place --aggressive --aggressive "$i"
-    - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
-    - done
+    - earthly --ci +check-formatting
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"
@@ -47,13 +47,8 @@ formatting:
 
 compiling:
   stage: compiling
-  image: python:3
-  before_script:
-    - pip3 install -r requirements.txt
   script:
-    - for i in $(du -a "." | awk '{print $2}' | grep -i "[.]py$"); do
-    - python -m py_compile "$i" || ( echo "$i does not compile." && exit 1 )
-    - done
+    - earthly --ci +compiling
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"

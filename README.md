@@ -1,5 +1,5 @@
 # Investment Charges Comparison
-[![Pipeline Status](https://gitlab.com/DeveloperC/investment-charges-comparison/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/investment-charges-comparison/commits/master)
+[![Pipeline Status](https://gitlab.com/DeveloperC/investment-charges-comparison/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/investment-charges-comparison/-/pipelines)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 

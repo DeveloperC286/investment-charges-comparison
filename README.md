@@ -12,13 +12,13 @@ I was not able to find a program which could achieve this, so I created my own P
 ## Installing Dependencies
 via Arch Linux's package manager.
 
-```
+```sh
 pacman -S python-matplotlib
 ```
 
 via pip and a virtual environment.
 
-```
+```sh
 virtualenv -p python3 .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -30,14 +30,14 @@ The Python script reads in the values from a CSV file. This allows you to graph 
 
 e.g.
 
-```
+```sh
 python3 investment-charges-comparison.py --input data.csv
 ```
 
 
 ## CSV Format
 ```
-Format : Name, Colour, Monthly Contribution (£), Duration (Years), Growth (%), Platform Fee(%), Platform Yearly Cap(£), Fund Fee (%)
+Name, Colour, Monthly Contribution (£), Duration (Years), Growth (%), Platform Fee (%), Platform Yearly Cap (£), Fund Fee (%)
 ```
 
 e.g.
@@ -45,7 +45,6 @@ e.g.
 ```
 HL, red, 200, 20, 5, 0, 0, 0.1
 Vangaurd, green, 200, 20, 5, 0, 0, 0.15
-
 ```
 
 
